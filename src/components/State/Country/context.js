@@ -10,7 +10,6 @@ export const CountryProvider = (props) => {
         country: {
             name: "United States", 
             url: "https://travelbriefing.org/United_States?format=json",
-            reviews: []
         },
     });
     return (

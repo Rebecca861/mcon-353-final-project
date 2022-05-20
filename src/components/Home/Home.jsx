@@ -10,7 +10,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import AddSharpIcon from "@mui/icons-material/AddSharp";
-import { countryReducer } from "../State/Country/reducer";
 import { CountryActions } from "../State/Country/reducer";
 import { CountryContext } from "../State/Country/context";
 import { DoubleArrow } from "@mui/icons-material";
@@ -19,7 +18,6 @@ import { ReviewContext } from "../State/Reviews/context";
 function Home() {
   const [countries, setCountries] = useState([]);
   const { statefulCountry, countryDispatch } = useContext(CountryContext);
-  const { reviewState, reviewDispatch } = useContext(ReviewContext);
 
   const [electricalVoltage, setElectricalVoltage] = useState("");
   const [timeZone, setTimeZone] = useState("");
@@ -55,7 +53,6 @@ function Home() {
       countryDispatch({
         type: CountryActions.SET,
         country: newCountry,
-        allReviews: reviewState.reviews,
       });
     }
     fetch(newCountry.url, {
