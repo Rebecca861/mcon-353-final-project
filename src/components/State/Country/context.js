@@ -7,7 +7,7 @@ export const CountryContext = React.createContext();
 
 export const CountryProvider = (props) => {
     const [countryState, countryDispatch] = useReducer(countryReducer, {
-        country: {},
+        country: {name: "America", url: "ddd"},
     });
     return (
     <CountryContext.Provider value = {{countryState, countryDispatch}}>

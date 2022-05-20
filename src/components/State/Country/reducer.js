@@ -16,5 +16,9 @@ export function countryReducer(state, action) {
 
 
 function setCountry(state, action) {
-    return action.country;
+    console.log("in setCountry, state is ");
+    console.log(state);
+    console.log(state.country);
+    console.log(action.country);
+    return {...state, country: action.country};
 }

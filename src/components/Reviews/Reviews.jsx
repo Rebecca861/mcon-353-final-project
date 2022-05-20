@@ -11,26 +11,32 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import { ReviewActions } from "../State/Reviews/reducer";
 
 export const Reviews = () => {
-  //const { reviews: allReviews, reviewDispatch } = useContext(ReviewContext);
-  //const { country, countryDispatch } = useContext(CountryContext);
-  //const countryName = country.name;
-  //const reviews = allReviews.countryName;
+  const { reviews: allReviews, reviewDispatch } = useContext(ReviewContext);
+  const { country, countryDispatch } = useContext(CountryContext);
+  const countryName = country.name;
+  const reviews = allReviews.countryName;
 
-  const [allReviews, setAllReviews] = useState({
+  /*const [allReviews, setAllReviews] = useState({
     America: ["Had a great time!!"],
     Israel: ["Nothing like it!", "Another review"],
-  });
+  });*/
 
-  const [countryName, setCountryName] = useState("Israel");
+  //const [countryName, setCountryName] = useState("Israel");
 
-  const [reviews, setReviews] = useState(allReviews[countryName]);
+  //const [reviews, setReviews] = useState(allReviews[countryName]);
 
   const [reviewText, setReviewText] = useState("");
 
   function addReview() {
-    setReviews([...reviews, reviewText]);
+    reviewDispatch({
+      type: ReviewActions.ADD,
+      review: "Test review",
+      countryName: countryName,
+    });
+    //setReviews([...reviews, reviewText]);
   }
 
   return (

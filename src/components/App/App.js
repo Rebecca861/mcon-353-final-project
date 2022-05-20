@@ -6,6 +6,8 @@ import { Reviews } from '../Reviews/Reviews';
 import { Prepare } from '../Prepare/Prepare';
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { CountryProvider } from '../State/Country/context';
+import { PrepareListProvider } from '../State/PrepareList/context';
+import { ReviewProvider } from '../State/Reviews/context';
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
       
       <div>
       <CountryProvider>
+        <ReviewProvider>
+        <PrepareListProvider>
         <HashRouter>
           <Header />
           <Routes>
@@ -22,6 +26,8 @@ function App() {
             <Route path="/prepare" element={<Prepare />}></Route>
           </Routes>
         </HashRouter>
+        </PrepareListProvider>
+        </ReviewProvider>
       </CountryProvider>
     </div>
     </div>

@@ -16,7 +16,7 @@ import { CountryContext } from "../State/Country/context";
 
 function Home() {
   const [countries, setCountries] = useState([]);
-  const { country, countryDispatch } = useContext(CountryContext);
+  const { countryState, countryDispatch } = useContext(CountryContext);
 
   const [electricalVoltage, setElectricalVoltage] = useState("");
   const [timeZone, setTimeZone] = useState("");
@@ -46,8 +46,10 @@ function Home() {
   function getCountryInfo(newCountry) {
     countryDispatch({
       type: CountryActions.SET,
-      country: { newCountry },
+      country: newCountry,
     });
+    console.log(newCountry);
+    console.log(countryState.country);
     fetch(newCountry.url, {
       headers: {},
     })
