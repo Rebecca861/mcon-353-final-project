@@ -12,13 +12,22 @@ import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { ReviewActions } from "../State/Reviews/reducer";
-import { CountryActions } from "../State/Country/reducer";
 
 export const Reviews = () => {
   const { reviewState, reviewDispatch } = useContext(ReviewContext);
   const { statefulCountry, countryDispatch } = useContext(CountryContext);
-  const countryName = statefulCountry.name;
-  const reviews = reviewState.reviews[countryName];
+  // const countryName = statefulCountry.name;
+
+  let reviews = [];
+  if ([statefulCountry.name] in reviewState.reviews) {
+    reviews = reviewState.reviews[statefulCountry.name];
+  }
+
+  // console.log("reviews: " + reviews);
+  // console.log(reviewState);
+  // console.log(reviewState.reviews);
+  // );
+  // console.log("statefulCountry.name " + statefulCountry.name);
 
   /*const [allReviews, setAllReviews] = useState({
     America: ["Had a great time!!"],
@@ -32,9 +41,10 @@ export const Reviews = () => {
   const [reviewText, setReviewText] = useState("");
 
   function addReview() {
-    countryDispatch({
-      type: CountryActions.ADD_REVIEW,
+    reviewDispatch({
+      type: ReviewActions.ADD,
       review: reviewText,
+      countryName: statefulCountry.name,
     });
     //setReviews([...reviews, reviewText]);
   }
@@ -47,7 +57,7 @@ export const Reviews = () => {
     >
       <br />
 
-      <h1>Been to {countryName}?</h1>
+      <h1>Been to {statefulCountry.name}?</h1>
 
       <h3>Leave a Review!</h3>
 
@@ -87,10 +97,10 @@ export const Reviews = () => {
       <Divider></Divider>
       <br />
 
-      <h1>What people are saying about {countryName}...</h1>
+      <h1>What people are saying about {statefulCountry.name}...</h1>
 
       <div>
-        {statefulCountry.reviews.map((review) => (
+        {reviews.map((review) => (
           <ReviewItem text={review} />
         ))}
       </div>

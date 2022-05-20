@@ -8,7 +8,7 @@ export const ReviewContext = React.createContext();
 export const ReviewProvider = (props) => {
     const [reviewState, reviewDispatch] = useReducer(reviewReducer, {
         reviews: {
-            "America": ["Had a great time!"],
+            "United States": ["Had a great time!"],
             "Israel": ["Here's a review"],
         },
     });

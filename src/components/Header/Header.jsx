@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import FlightIcon from "@mui/icons-material/Flight";
 
 const pages = [
   { title: "Home", path: "/" },
@@ -44,12 +45,20 @@ export const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h3"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            DEMO SITE
+            Travelfied
+          </Typography>
+          <Typography
+            variant="caption"
+            component="div"
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+          >
+            Travel. Simplified.&nbsp;&nbsp;&nbsp;
+            <FlightIcon />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -92,13 +101,22 @@ export const Header = () => {
             </Menu>
           </Box>
           <Typography
-            variant="h6"
+            variant="h3"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            DEMO SITE
+            Travelfied
           </Typography>
+          <Typography
+            variant="overline"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
+            Travel. Simplified.
+          </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button

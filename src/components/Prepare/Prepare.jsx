@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import "./Prepare.css";
 
 export const Prepare = () => {
   const { listItems, setListItems } = useContext(PrepareListContext);
@@ -79,7 +80,7 @@ const PrepareListItem = (props) => {
           onChange={() => props.handleChange(props.text)}
         />
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={2}>
         {props.text}
       </Grid>
       <Grid item xs={1}>

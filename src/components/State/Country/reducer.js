@@ -19,11 +19,14 @@ export function countryReducer(state, action) {
 
 
 function setCountry(state, action) {
-    console.log("in setCountry, state is ");
-    console.log(state);
-    console.log(state.country);
-    console.log(action.country);
-    return {...state, country: {...action.country, reviews: []}};
+    if (action.country.name in action.allReviews) {
+        let theseReviews = action.allReviews[action.country.name];
+        return {...state, country: {...action.country, reviews: theseReviews}};
+    }
+    else {
+        let theseReviews = [];
+        return {...state, country: {...action.country, reviews: theseReviews}};
+    }
 }
 
 function addReview(state, action) {
