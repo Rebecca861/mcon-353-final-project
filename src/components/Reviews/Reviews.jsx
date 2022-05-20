@@ -12,12 +12,13 @@ import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { ReviewActions } from "../State/Reviews/reducer";
+import { CountryActions } from "../State/Country/reducer";
 
 export const Reviews = () => {
-  const { reviews: allReviews, reviewDispatch } = useContext(ReviewContext);
-  const { country, countryDispatch } = useContext(CountryContext);
-  const countryName = country.name;
-  const reviews = allReviews.countryName;
+  const { reviewState, reviewDispatch } = useContext(ReviewContext);
+  const { statefulCountry, countryDispatch } = useContext(CountryContext);
+  const countryName = statefulCountry.name;
+  const reviews = reviewState.reviews[countryName];
 
   /*const [allReviews, setAllReviews] = useState({
     America: ["Had a great time!!"],
@@ -31,10 +32,9 @@ export const Reviews = () => {
   const [reviewText, setReviewText] = useState("");
 
   function addReview() {
-    reviewDispatch({
-      type: ReviewActions.ADD,
-      review: "Test review",
-      countryName: countryName,
+    countryDispatch({
+      type: CountryActions.ADD_REVIEW,
+      review: reviewText,
     });
     //setReviews([...reviews, reviewText]);
   }
@@ -90,7 +90,7 @@ export const Reviews = () => {
       <h1>What people are saying about {countryName}...</h1>
 
       <div>
-        {reviews.map((review) => (
+        {statefulCountry.reviews.map((review) => (
           <ReviewItem text={review} />
         ))}
       </div>

@@ -13,10 +13,11 @@ import AddSharpIcon from "@mui/icons-material/AddSharp";
 import { countryReducer } from "../State/Country/reducer";
 import { CountryActions } from "../State/Country/reducer";
 import { CountryContext } from "../State/Country/context";
+import { DoubleArrow } from "@mui/icons-material";
 
 function Home() {
   const [countries, setCountries] = useState([]);
-  const { countryState, countryDispatch } = useContext(CountryContext);
+  const { statefulCountry, countryDispatch } = useContext(CountryContext);
 
   const [electricalVoltage, setElectricalVoltage] = useState("");
   const [timeZone, setTimeZone] = useState("");
@@ -27,7 +28,12 @@ function Home() {
   const [currencyName, setCurrencyName] = useState("");
   const [currencyCode, setCurrencyCode] = useState("");
   const [currencyRate, setCurrencyRate] = useState("");
-  const [avgTemp, setAvgTemp] = useState("");
+
+  useEffect(() => {
+    if (statefulCountry !== {}) {
+      getCountryInfo(statefulCountry);
+    }
+  }, []);
 
   function getCountries() {
     fetch("https://travelbriefing.org/countries.json", {
@@ -39,17 +45,16 @@ function Home() {
 
   const handleChange = (event, newAlignment) => {
     const newCountry = event.target.value;
-    //setCountry(newCountry);
     getCountryInfo(newCountry);
   };
 
   function getCountryInfo(newCountry) {
-    countryDispatch({
-      type: CountryActions.SET,
-      country: newCountry,
-    });
-    console.log(newCountry);
-    console.log(countryState.country);
+    if (newCountry !== statefulCountry) {
+      countryDispatch({
+        type: CountryActions.SET,
+        country: newCountry,
+      });
+    }
     fetch(newCountry.url, {
       headers: {},
     })
@@ -80,47 +85,34 @@ function Home() {
       >
         <FormControl sx={{ minWidth: 120 }}>
           <div>
-            <InputLabel id="demo-select-label">Select a country...</InputLabel>
-            <Select
-              /*labelId="demo-select-label"*/
-              id="demo-select"
-              onChange={handleChange}
-              onOpen={getCountries}
-              label="Select a country..."
-              style={{ minWidth: 250 }}
-            >
-              {countries.map((country) => (
-                <MenuItem key={country.url} value={country}>
-                  {country.name}
-                </MenuItem>
-              ))}
-            </Select>
-            <br />
-            <br />
-            <br />
-            <Accordion sx={{ width: 800 }}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+            <div id="selectDiv">
+              <InputLabel id="demo-select-label">
+                Select a country...
+              </InputLabel>
+              <Select
+                /*labelId="demo-select-label"*/
+                id="demo-select"
+                onChange={handleChange}
+                onOpen={getCountries}
+                label="Select a country..."
+                style={{ minWidth: 250 }}
               >
-                <Typography>Miscelaneous</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Electrical voltage: {electricalVoltage}
-                  <br />
-                  Time zone: {timeZone}
-                  <br />
-                  Tap water classification: {waterInfo}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
+                {countries.map((country) => (
+                  <MenuItem key={country.url} value={country}>
+                    {country.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+            <h3 id="bannerDiv">{statefulCountry.name}</h3>
+            <br />
+
+            <Accordion defaultExpanded={true}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
+                sx={{ backgroundColor: "#c5ceed" }}
               >
                 <Typography>Languages</Typography>
               </AccordionSummary>
@@ -132,13 +124,53 @@ function Home() {
                 ))}
               </AccordionDetails>
             </Accordion>
-            <Accordion>
+
+            <Accordion defaultExpanded={true}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel4a-content"
+                id="panel4a-header"
+                sx={{ backgroundColor: "#c5ceed" }}
+              >
+                <Typography>Vaccinations you might want to get</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  {vaccinations.map((v) => (
+                    <Typography>{v.name}</Typography>
+                  ))}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion defaultExpanded={true}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel5a-content"
+                id="panel6a-header"
+                sx={{ backgroundColor: "#c5ceed" }}
+              >
+                <Typography>Currency information</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Name: {currencyName}
+                  <br />
+                  Code: {currencyCode}
+                  <br />
+                  Rate: {currencyRate} (compared to USD)
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion defaultExpanded={true}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel3a-content"
                 id="panel3a-header"
+                sx={{ backgroundColor: "#c5ceed" }}
               >
-                <Typography>Phone Numbers:</Typography>
+                <Typography>Phone numbers</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
@@ -147,6 +179,26 @@ function Home() {
                   Fire: {phoneNumbers.fire}
                   <br />
                   Ambulance: {phoneNumbers.ambulance}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion sx={{ width: 800 }} defaultExpanded={true}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                sx={{ backgroundColor: "#c5ceed" }}
+              >
+                <Typography>Miscellaneous</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Electrical voltage: {electricalVoltage}
+                  <br />
+                  Time zone: {timeZone}
+                  <br />
+                  Tap water classification: {waterInfo}
                 </Typography>
               </AccordionDetails>
             </Accordion>

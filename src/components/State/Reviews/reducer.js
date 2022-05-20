@@ -42,9 +42,17 @@ function addReview(state, action) {
 
 
 if (action.countryName in state.reviews) {
-    let newReviewsForCountry = cloneDeep(state.reviews.countryName);
+    let newReviewsAll = cloneDeep(state.reviews);
+    let newReviewsForCountry = cloneDeep(state.reviews[action.countryName]);
+    let cName = action.countryName;
     const newReview = action.review;
-    return {...state, reviews: {...state.reviews, countryName: [...state.reviews.countryName, newReview]} };
+    console.log(newReview);
+    console.log(state.reviews[action.countryName]);
+    newReviewsForCountry = [...newReviewsForCountry, newReview];
+    newReviewsAll = {...newReviewsAll, newReviewsForCountry};
+    var newState = {...state, reviews: {...state, reviews: newReviewsAll}};
+    console.log(newState);
+    return {...state, reviews: {...state.reviews, countryName: [...state.reviews[action.countryName], newReview]} };
 }
 
     return action.country;

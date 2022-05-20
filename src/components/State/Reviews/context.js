@@ -9,10 +9,11 @@ export const ReviewProvider = (props) => {
     const [reviewState, reviewDispatch] = useReducer(reviewReducer, {
         reviews: {
             "America": ["Had a great time!"],
+            "Israel": ["Here's a review"],
         },
     });
     return (
-    <ReviewContext.Provider value = {{reviews: reviewState.reviews, reviewDispatch}}>
+    <ReviewContext.Provider value = {{reviewState, reviewDispatch}}>
         {props.children}
     </ReviewContext.Provider>
     );
