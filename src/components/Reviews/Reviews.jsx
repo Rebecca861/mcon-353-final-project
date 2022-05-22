@@ -16,27 +16,11 @@ import { ReviewActions } from "../State/Reviews/reducer";
 export const Reviews = () => {
   const { reviewState, reviewDispatch } = useContext(ReviewContext);
   const { statefulCountry, countryDispatch } = useContext(CountryContext);
-  // const countryName = statefulCountry.name;
 
   let reviews = [];
   if ([statefulCountry.name] in reviewState.reviews) {
     reviews = reviewState.reviews[statefulCountry.name];
   }
-
-  // console.log("reviews: " + reviews);
-  // console.log(reviewState);
-  // console.log(reviewState.reviews);
-  // );
-  // console.log("statefulCountry.name " + statefulCountry.name);
-
-  /*const [allReviews, setAllReviews] = useState({
-    America: ["Had a great time!!"],
-    Israel: ["Nothing like it!", "Another review"],
-  });*/
-
-  //const [countryName, setCountryName] = useState("Israel");
-
-  //const [reviews, setReviews] = useState(allReviews[countryName]);
 
   const [reviewText, setReviewText] = useState("");
 
@@ -46,7 +30,6 @@ export const Reviews = () => {
       review: reviewText,
       countryName: statefulCountry.name,
     });
-    //setReviews([...reviews, reviewText]);
   }
 
   return (
@@ -75,7 +58,6 @@ export const Reviews = () => {
           }}
         >
           <TextField
-            //fullWidth
             id="standard-textarea"
             label="Add a review..."
             placeholder="Review"

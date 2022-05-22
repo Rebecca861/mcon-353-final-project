@@ -1,19 +1,15 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { styled as styled1 } from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import AddSharpIcon from "@mui/icons-material/AddSharp";
 import { CountryActions } from "../State/Country/reducer";
 import { CountryContext } from "../State/Country/context";
-import { DoubleArrow } from "@mui/icons-material";
-import { ReviewContext } from "../State/Reviews/context";
 
 function Home() {
   const [countries, setCountries] = useState([]);
@@ -74,7 +70,6 @@ function Home() {
 
   return (
     <div>
-      {/* <!--label="Select a country..."--> */}
       <h1>Countries</h1>
       <div
         id="countryDiv"

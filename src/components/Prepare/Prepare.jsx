@@ -10,7 +10,6 @@ import "./Prepare.css";
 export const Prepare = () => {
   const { listItems, setListItems } = useContext(PrepareListContext);
   const [inputText, setInputText] = useState("");
-  //const [listItems, setListItems] = useState(["Test item"]);
 
   function addListItem() {
     setListItems([...listItems, { text: inputText, isChecked: false }]);
